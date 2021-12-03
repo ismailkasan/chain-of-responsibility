@@ -1,0 +1,21 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var regional_manager_1 = require("./chainOfResponsibility/regional-manager");
+var executive_manager_1 = require("./chainOfResponsibility/executive-manager");
+var bank_teller_1 = require("./chainOfResponsibility/bank-teller");
+var with_draw_1 = require("./chainOfResponsibility/with-draw");
+var manager_1 = require("./chainOfResponsibility/manager");
+// Chain of responsibiliy
+var withdraw = new with_draw_1.WithDraw("a6e193dc-cdbb-4f09-af1a-dea307a9ed15", 500000, "TRY", "TR681223154132432141412");
+var bankTeller = new bank_teller_1.BankTeller();
+var manager = new manager_1.Manager();
+var executiveManager = new executive_manager_1.ExecutiveManager();
+var regionalManager = new regional_manager_1.RegionalManager();
+bankTeller.SetMax(40000);
+bankTeller.SetNextApprover(manager);
+manager.SetMax(70000);
+manager.SetNextApprover(executiveManager);
+executiveManager.SetMax(150000);
+executiveManager.SetNextApprover(regionalManager);
+regionalManager.SetMax(7500000);
+bankTeller.ProcessRequest(withdraw);
